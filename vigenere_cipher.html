@@ -1,0 +1,78 @@
+<html>
+<head>
+	<meta charset="UTF-8"> 
+	<title>Vigenère cipher</title>
+<script>
+
+function addListeners(){
+	var button_encrypt = document.getElementById('button_encrypt');
+	var output_encrypt = document.getElementById('output_encrypt');
+	var output_keyword_repeat = document.getElementById('output_keyword_repeat');
+	
+	
+	if(window.addEventListener) {
+		button_encrypt.addEventListener("click", encrypt, false);
+	}
+	
+	function encrypt(){
+		var keyword = document.getElementById('keyword').value;
+		var message = document.getElementById('message').value;
+		
+		// first create the keystring matching the message length
+		keyword_repeat = keyword.repeat(Math.floor(message.length/keyword.length)) + keyword.slice(0,message.length%keyword.length);
+		output_keyword_repeat.innerHTML = keyword_repeat.toUpperCase();
+	}
+}
+
+
+window.onload = addListeners;
+
+
+</script>
+
+<style>
+label {    padding-left:26px;
+    width:125px;
+    display:inline-block;
+	background-color:lightgray;}
+	
+.output_area {
+	background-color: #E9E9F9;
+    display:inline-block;
+	margin:0;
+	padding:12px;
+	vertical-align:top;
+}
+input#keyword, textarea#message, .output_area {
+	width:400px;
+}
+</style>
+</head>
+<body>
+<h1>Vigenère cipher</h1>
+<fieldset>
+	<legend>Encryption input</legend>
+	<label for="keyword">keyword</label>
+	<input id="keyword" type="text" value="LEMON"></br>
+	
+	<label for="message">message</label>
+	<textarea id="message" rows="10" cols="30">ATTACKATDAWN</textarea></br>
+	<button id="button_encrypt">encrypt</button>
+
+</fieldset>
+
+<fieldset>
+	<legend>Encryption output</legend>
+
+	<label for="output_keyword_repeat">Keyword repeated at text length</label>
+	<div id="output_keyword_repeat" class="output_area"><span class="element_placeholder">Output</span></div>
+	<br />
+	<label for="output_encrypt">Encrypted Message</label>
+	<div id="output_encrypt" class="output_area"><span class="element_placeholder">Output</span><div>
+</fieldset>
+
+
+
+
+</body>
+</html>
