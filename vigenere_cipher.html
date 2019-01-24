@@ -8,7 +8,7 @@ function addListeners(){
 	var button_encrypt = document.getElementById('button_encrypt');
 	var output_encrypt = document.getElementById('output_encrypt');
 	var output_keyword_repeat = document.getElementById('output_keyword_repeat');
-	
+	var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	
 	if(window.addEventListener) {
 		button_encrypt.addEventListener("click", encrypt, false);
@@ -17,10 +17,29 @@ function addListeners(){
 	function encrypt(){
 		var keyword = document.getElementById('keyword').value;
 		var message = document.getElementById('message').value;
+		var alphabetlength=alphabet.length;
 		
 		// first create the keystring matching the message length
-		keyword_repeat = keyword.repeat(Math.floor(message.length/keyword.length)) + keyword.slice(0,message.length%keyword.length);
+		var keyword_repeat = keyword.repeat(Math.floor(message.length/keyword.length)) + keyword.slice(0,message.length%keyword.length);
 		output_keyword_repeat.innerHTML = keyword_repeat.toUpperCase();
+		message.forEach(encrypt_letter)
+
+		function encrypt_letter(value, index, array){
+			// 1. get position of key letter in alphabet
+			var letterposition = alphabet.indexOf(letter.toUpperCase());
+			var key = keyword_repeat.charAt(letterposition)
+			var keyposition = alphabet.indexOf(key.toUpperCase())
+			
+			if(keyposition + letterposition < alphabet.length){
+				console.log(letter + "(" + letterposition + ") with key " + key + "(" + keyposition + ") becomes " + alphabet.charAt(keyposition + letterposition));
+				return alphabet.charAt(keyposition + letterposition);
+			}else{
+				console.log(letter + "(" + letterposition + ") with key " + key + "(" + keyposition + ") becomes " + alphabet.charAt((keyposition + letterposition) - alphabet.length));
+				return alphabet.charAt((keyposition + letterposition) - alphabet.length);
+			}
+
+			//return encrypted_letter;
+		}	
 	}
 }
 
@@ -31,10 +50,12 @@ window.onload = addListeners;
 </script>
 
 <style>
-label {    padding-left:26px;
+label {
+    padding-left:26px;
     width:125px;
     display:inline-block;
-	background-color:lightgray;}
+	background-color:lightgray;
+	}
 	
 .output_area {
 	background-color: #E9E9F9;
@@ -42,10 +63,11 @@ label {    padding-left:26px;
 	margin:0;
 	padding:12px;
 	vertical-align:top;
-}
+	}
+
 input#keyword, textarea#message, .output_area {
 	width:400px;
-}
+	}
 </style>
 </head>
 <body>
