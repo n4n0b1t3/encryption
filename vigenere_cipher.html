@@ -62,7 +62,8 @@ function addListeners(){
 			var keyposition = alphabet.indexOf(key.toUpperCase())
 			
 			if(keyposition >= letterposition){
-				var alphabetposition = ((alphabet.length + (keyposition - letterposition)) % alphabet.length);
+				var alphabetposition = ((alphabet.length + (letterposition - keyposition)) % alphabet.length);
+				// alphabet.length - keyposition + letterposition)
 				console.log(">= " + letter + "(" + letterposition + ") with key " + key 
 								  + "(" + keyposition + ") becomes " 
 								  + alphabet.charAt(alphabetposition) + "(" + alphabetposition + ")");
