@@ -46,7 +46,7 @@ function callback(direction){
 				});
 		}
 		if(direction == "swap"){
-			document.getElementById('message').innerHTML = output_text.value;
+			document.getElementById('message').innerHTML = output.value;
 		}
 		
 		output_text.innerHTML = output.join("");
