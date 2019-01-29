@@ -31,7 +31,8 @@ function callback(direction){
 
 	return function(){
 		var key = document.getElementById('key').value.toUpperCase();
-		var message = Array.from(document.getElementById('message').value.toUpperCase());
+		var message = Array.from(document.getElementById('message').value.cleanup());
+		console.log(message);
 		key = key.repeat(Math.floor(message.length/key.length)) + key.slice(0,message.length%key.length);
 		var output = Array();
 		
@@ -46,12 +47,15 @@ function callback(direction){
 				});
 		}
 		if(direction == "swap"){
-			document.getElementById('message').innerHTML = output.value;
+			document.getElementById('message').value = output_text.value;
 		}
 		
 		output_text.innerHTML = output.join("");
 	}
 }
 	
+String.prototype.cleanup = function() {
+   return this.toUpperCase().replace(/[^a-zA-Z]+/g, "");
+}
 window.onload = addListeners;
 
