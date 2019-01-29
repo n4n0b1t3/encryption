@@ -1,0 +1,77 @@
+
+function addListeners(){
+	var button_encrypt = document.getElementById('button_encrypt');
+	var button_decrypt = document.getElementById('button_decrypt');
+	var output_text = document.getElementById('output_text');
+	var output_keyword = document.getElementById('output_keyword');
+	var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	
+	if(window.addEventListener) {
+		button_encrypt.addEventListener("click", encrypt, false);
+		button_decrypt.addEventListener("click", decrypt, false);
+	}
+	
+	function encrypt(){
+		var keyword = document.getElementById('keyword').value;
+		var message = document.getElementById('message').value;
+		var alphabetlength=alphabet.length;
+		var keyword_repeat = keyword.repeat(Math.floor(message.length/keyword.length)) + keyword.slice(0,message.length%keyword.length);
+		var message_array = Array.from(message);
+
+		output_keyword.value = keyword_repeat.toUpperCase();
+		message_array.forEach(encrypt_letter);
+		output_text.innerHTML = message_array.join("");
+
+		function encrypt_letter(letter, index, calling_array){
+			var letterposition = alphabet.indexOf(letter.toUpperCase());
+			var key = keyword_repeat.charAt(index)
+			var keyposition = alphabet.indexOf(key.toUpperCase())
+			
+			if(keyposition + letterposition < alphabet.length){
+				console.log(letter + "(" + letterposition + ") with key " + key + "(" + keyposition + ") becomes " + alphabet.charAt(keyposition + letterposition));
+				calling_array[index] = alphabet.charAt(keyposition + letterposition);
+			}else{
+				console.log(letter + "(" + letterposition + ") with key " + key + "(" + keyposition + ") becomes " + alphabet.charAt((keyposition + letterposition) - alphabet.length));
+				calling_array[index] = alphabet.charAt((keyposition + letterposition) - alphabet.length);
+			}
+		}	
+	}
+
+	function decrypt(){
+		var keyword = document.getElementById('keyword').value;
+		var message = document.getElementById('message').value;
+		var alphabetlength=alphabet.length;
+		var keyword_repeat = keyword.repeat(Math.floor(message.length/keyword.length)) + keyword.slice(0,message.length%keyword.length);
+		var message_array = Array.from(message);
+		
+		output_keyword.value = keyword_repeat.toUpperCase();
+		message_array.forEach(decrypt_letter);
+		output_text.innerHTML = message_array.join("");
+		
+		function decrypt_letter(letter, index, calling_array){
+			// 1. take key accoring to index
+			var key = keyword_repeat.charAt(index)
+			
+			// 2. get encrypted character position (message array [index])
+			var letterposition = alphabet.indexOf(letter.toUpperCase());
+			var keyposition = alphabet.indexOf(key.toUpperCase())
+			
+			if(keyposition >= letterposition){
+				var alphabetposition = ((alphabet.length + (letterposition - keyposition)) % alphabet.length);
+				// alphabet.length - keyposition + letterposition)
+				console.log(">= " + letter + "(" + letterposition + ") with key " + key 
+								  + "(" + keyposition + ") becomes " 
+								  + alphabet.charAt(alphabetposition) + "(" + alphabetposition + ")");
+				calling_array[index] = alphabet.charAt(alphabetposition);
+			}else{
+				var alphabetposition = letterposition - keyposition;
+				console.log("else " + letter + "(" + letterposition + ") with key " + key + "(" + keyposition + ") becomes " + alphabet.charAt(alphabetposition) + "(" + alphabetposition + ")");
+				calling_array[index] = alphabet.charAt(alphabetposition);
+			}
+		}
+	}	
+}
+
+
+window.onload = addListeners;
+

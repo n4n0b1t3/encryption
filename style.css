@@ -36,7 +36,7 @@ section {
 	margin:12px;
 }
 
-input , textarea, .output_area {
+input , textarea {
 	color: #0674b2;
 	font-family: 'Open Sans Semi Bold',Arial,sans-serif;
 	font-size: 14px;
@@ -47,12 +47,12 @@ input , textarea, .output_area {
 	padding:10px;
 }
 
-textarea , .output_area.long{
+textarea#message {
 	height: 300px;
 }
 
-.output_area {
-	padding:0;
+textarea#output{
+	height: 382px;
 }
 
 button {
