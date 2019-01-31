@@ -27,6 +27,22 @@ function callback(action){
 	return function(){
 		var message = Array.from(document.getElementById('message').value.cleanup());
 		
+		
+		
+		var ary = {}
+		var k = 3 //keylength
+		for(var pos=0; pos<cipherText_long.length-k;pos++){
+			var ss = cipherText.substring(pos,pos+k);
+			if(ary[ss]=='undefined'){
+				ary[ss]=[pos];
+			}else{
+				ary[ss]=ary[ss]+[,pos]
+			}
+			console.log("Pos für "+ss+":"+ary[ss]);
+		}
+		
+		console.log("ary:"+ary);
+		/**
 		if(action == "count"){
 			var coincidences = new Array();
 			var test = 0;
@@ -36,8 +52,6 @@ function callback(action){
 				var regex = new RegExp(substring, 'g');
 				var count = 0;
 				var positions = [];
-				while((match = regex.exec(cipherText)) != null) {
-					count ++;
 					test++;
 					console.log(count);
 					console.log("test: " + test + ", match: " + match);
@@ -50,7 +64,7 @@ function callback(action){
 			}
 			//console.log(coincidences);
 		}
-		
+		*/
 		//output_text.innerHTML = output.join("");
 	}
 }
