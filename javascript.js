@@ -24,7 +24,7 @@ modulus operator (%)
 A%B: if A<B the division A/B returns 0 with the remainder A
 
 */
-function callback(direction){
+function callback(action){
 	var output_text = document.getElementById('output');
 	var output_keyword = document.getElementById('output_keyword');
 	var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";			
@@ -36,17 +36,17 @@ function callback(direction){
 		key = key.repeat(Math.floor(message.length/key.length)) + key.slice(0,message.length%key.length);
 		var output = Array();
 		
-		if(direction == "encrypt"){
+		if(action == "encrypt"){
 			output = message.map((message_char,index)=>{ 
 					return alphabet.charAt((alphabet.indexOf(message_char) + alphabet.indexOf(key.charAt(index))) % alphabet.length)
 				});
 		}
-		if(direction == "decrypt"){
+		if(action == "decrypt"){
 			output = message.map((message_char,index)=>{ 
 					return alphabet.charAt((alphabet.indexOf(message_char) - alphabet.indexOf(key.charAt(index)) + alphabet.length) % alphabet.length)
 				});
 		}
-		if(direction == "swap"){
+		if(action == "swap"){
 			document.getElementById('message').value = output_text.value;
 		}
 		
